@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AspNetCoreSamplesJwt.Models
 {
-    public class UserAccount : ObservableObject, IUserCredentials, IUserInfo
+    public class UserAccount : ObservableObject, IUserAccount
     {
         private Guid guid;
         private string name;

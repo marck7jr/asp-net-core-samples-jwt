@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AspNetCoreSamplesJwt.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200104215253_InitialMigration")]
+    [Migration("20200105033852_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,12 +39,27 @@ namespace AspNetCoreSamplesJwt.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Role")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Guid");
 
                     b.ToTable("UserAccounts");
+                });
+
+            modelBuilder.Entity("AspNetCoreSamplesJwt.Services.JwtRefreshTokenData", b =>
+                {
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("Subject")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("RefreshToken");
+
+                    b.ToTable("JwtRefreshTokens");
                 });
 #pragma warning restore 612, 618
         }

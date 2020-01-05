@@ -1,4 +1,5 @@
 using AspNetCoreSamplesJwt.Models;
+using AspNetCoreSamplesJwt.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCoreSamplesJwt.Data
@@ -11,5 +12,6 @@ namespace AspNetCoreSamplesJwt.Data
 		}
 
 		public DbSet<UserAccount> UserAccounts { get; set; }
+		public DbSet<JwtRefreshTokenData> JwtRefreshTokens { get; set; }
 	}
 }

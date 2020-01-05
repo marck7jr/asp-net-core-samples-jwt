@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Text;
 
 namespace AspNetCoreSamplesJwt
@@ -26,7 +27,7 @@ namespace AspNetCoreSamplesJwt
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=Sample.db"));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=Jwt.db"));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters()
@@ -35,12 +36,13 @@ namespace AspNetCoreSamplesJwt
                     ValidateActor = true,
                     ValidateAudience = true,
                     ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true,
                     ValidIssuer = Configuration["Jwt:Issuer"],
                     ValidAudience = Configuration["Jwt:Audience"],
+                    ClockSkew = TimeSpan.Zero,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SigningCredentials:Key"]))
                 };
             });
-            services.AddAuthorization();
             services.AddSingleton<IJwtService, JwtService>();
         }
 
